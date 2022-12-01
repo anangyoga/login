@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Form, Input } from "antd";
 
-const Login = ({ onFinish, onFinishFailed }) => {
+const Login = ({ onFinish, onFinishFailed, user, setUser, password, setPassword }) => {
   return (
     <Form
       name="basic"
@@ -28,7 +28,7 @@ const Login = ({ onFinish, onFinishFailed }) => {
           },
         ]}
       >
-        <Input />
+        <Input value={user} onChange={(e) => setUser(e.target.value)} />
       </Form.Item>
 
       <Form.Item
@@ -41,7 +41,7 @@ const Login = ({ onFinish, onFinishFailed }) => {
           },
         ]}
       >
-        <Input.Password />
+        <Input.Password value={password} onChange={(e) => setPassword(e.target.value)} />
       </Form.Item>
 
       <Form.Item

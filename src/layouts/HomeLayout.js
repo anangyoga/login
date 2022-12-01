@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Col, Row } from "antd";
 import Login from "../components/Login";
 
@@ -19,19 +19,23 @@ const loginForm = {
 };
 
 const HomeLayout = () => {
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
+
   const onFinish = (values) => {
     console.log("Success:", values);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
   return (
     <Row gutter={16} justify="center" align="center">
       <Col flex span={12} style={homepage}>
         <h1>Welcome to Our Homepage</h1>
       </Col>
       <Col span={12} style={loginForm}>
-        <Login onFinish={onFinish} onFinishFailed={onFinishFailed} />
+        <Login onFinish={onFinish} onFinishFailed={onFinishFailed} user={user} setUser={setUser} password={password} setPassword={setPassword} />
       </Col>
     </Row>
   );
