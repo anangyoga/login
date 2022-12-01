@@ -1,17 +1,19 @@
 import React from "react";
 import Profile from "../components/Profile";
 
-const profile = {
-  backgroundColor: "#DEF5E5",
-  height: "100vh",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
+const STYLES = {
+  profile: {
+    backgroundColor: "#DEF5E5",
+    height: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 };
 
 const ProfileLayout = () => {
   return (
-    <div style={profile}>
+    <div style={STYLES.profile}>
       <Profile />
     </div>
   );
