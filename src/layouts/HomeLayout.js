@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Col, Row } from "antd";
 import Login from "../components/Login";
+import { useNavigate } from "react-router-dom";
 
 const STYLES = {
   homepage: {
@@ -22,9 +23,28 @@ const STYLES = {
 const HomeLayout = () => {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const onFinish = (values) => {
-    console.log("Success:", values);
+  const onFinish = async (values) => {
+    const res = await fetch("https://dummyjson.com/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: user,
+        password: password,
+        // expiresInMins: 60, // optional
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        return result;
+      });
+
+    if (res.username === undefined) {
+      alert("Login Failed");
+    } else {
+      navigate("/profile");
+    }
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
