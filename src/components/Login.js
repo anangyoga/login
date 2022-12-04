@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Form, Input } from "antd";
+import { useNavigate } from "react-router-dom";
+import { LoginService } from "../services/Admin";
 
 const STYLES = {
   invalid: {
@@ -7,7 +9,33 @@ const STYLES = {
   },
 };
 
-const Login = ({ invalid, onFinish, onFinishFailed, user, setUser, password, setPassword }) => {
+const Login = () => {
+  const [invalid, setInvalid] = useState(false);
+
+  const navigate = useNavigate();
+
+  const onFinish = async (values) => {
+    const payload = {
+      username: values.username,
+      password: values.password,
+    };
+
+    try {
+      const response = await LoginService.loginWithEmail(payload);
+      localStorage.setItem("token", response?.data?.token);
+      console.log(response?.data?.email, "data");
+      console.log(response?.data?.token, "token");
+      setInvalid(false);
+      navigate("/profile");
+    } catch (error) {
+      setInvalid(true);
+    }
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
   return (
     <Form
       name="basic"
@@ -34,7 +62,7 @@ const Login = ({ invalid, onFinish, onFinishFailed, user, setUser, password, set
           },
         ]}
       >
-        <Input value={user} onChange={(e) => setUser(e.target.value)} />
+        <Input />
       </Form.Item>
 
       <Form.Item
@@ -47,7 +75,7 @@ const Login = ({ invalid, onFinish, onFinishFailed, user, setUser, password, set
           },
         ]}
       >
-        <Input.Password value={password} onChange={(e) => setPassword(e.target.value)} />
+        <Input.Password />
       </Form.Item>
 
       <Form.Item
