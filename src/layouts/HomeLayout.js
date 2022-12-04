@@ -23,6 +23,8 @@ const STYLES = {
 const HomeLayout = () => {
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
+  const [invalid, setInvalid] = useState(false);
+
   const navigate = useNavigate();
 
   const onFinish = async (values) => {
@@ -41,9 +43,10 @@ const HomeLayout = () => {
       });
 
     if (res.username === undefined) {
-      alert("Login Failed");
+      setInvalid(true);
     } else {
       navigate("/profile");
+      setInvalid(false);
     }
   };
   const onFinishFailed = (errorInfo) => {
@@ -56,7 +59,7 @@ const HomeLayout = () => {
         <h1>Welcome to Our Homepage</h1>
       </Col>
       <Col span={12} style={STYLES.loginForm}>
-        <Login onFinish={onFinish} onFinishFailed={onFinishFailed} user={user} setUser={setUser} password={password} setPassword={setPassword} />
+        <Login onFinish={onFinish} onFinishFailed={onFinishFailed} user={user} setUser={setUser} password={password} setPassword={setPassword} invalid={invalid} />
       </Col>
     </Row>
   );

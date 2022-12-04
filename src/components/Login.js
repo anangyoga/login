@@ -1,7 +1,13 @@
 import React from "react";
 import { Button, Form, Input } from "antd";
 
-const Login = ({ onFinish, onFinishFailed, user, setUser, password, setPassword }) => {
+const STYLES = {
+  invalid: {
+    color: "#FB2576",
+  },
+};
+
+const Login = ({ invalid, onFinish, onFinishFailed, user, setUser, password, setPassword }) => {
   return (
     <Form
       name="basic"
@@ -50,6 +56,7 @@ const Login = ({ onFinish, onFinishFailed, user, setUser, password, setPassword 
           span: 16,
         }}
       >
+        {invalid && <p style={STYLES.invalid}>Wrong password or username</p>}
         <Button type="primary" htmlType="submit">
           Submit
         </Button>
